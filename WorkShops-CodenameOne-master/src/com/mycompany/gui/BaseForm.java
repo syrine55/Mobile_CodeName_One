@@ -83,8 +83,9 @@ public class BaseForm extends Form {
         ));
         
         tb.addMaterialCommandToSideMenu("Consulter Meditation", FontImage.MATERIAL_UPDATE, e -> new ConsulterEspaceMeditation(res).show());
-        tb.addMaterialCommandToSideMenu("Gérer CatégorieM", FontImage.MATERIAL_SETTINGS, e -> new GestionCategorieForm(res).show());
-        tb.addMaterialCommandToSideMenu("Gérer Méditation", FontImage.MATERIAL_SETTINGS, e -> new GestionMeditationForm(res).show());
+        tb.addMaterialCommandToSideMenu("Gérer CatégorieM", FontImage.MATERIAL_EDIT, e -> new GestionCategorieForm(res).show());
+        tb.addMaterialCommandToSideMenu("Gérer Méditation", FontImage.MATERIAL_EDIT, e -> new GestionMeditationForm(res).show());
+        tb.addMaterialCommandToSideMenu("Gérer Recette", FontImage.MATERIAL_EDIT, e -> new ListRecetteForm(res).show());
         tb.addMaterialCommandToSideMenu("Profile", FontImage.MATERIAL_SETTINGS, e -> new ProfileForm(res).show());
         tb.addMaterialCommandToSideMenu("Logout", FontImage.MATERIAL_EXIT_TO_APP, e -> new WalkthruForm(res).show());
         

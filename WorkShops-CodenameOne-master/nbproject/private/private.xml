@@ -4,24 +4,16 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Mega%20Pc/Desktop/WorkShops-CodenameOne-master/src/com/mycompany/myapp/services/ServiceMeditation.java</file>
-            <file>file:/C:/Users/Mega%20Pc/Desktop/WorkShops-CodenameOne-master/src/entity/Meditation.java</file>
-            <file>file:/C:/Users/Mega%20Pc/Desktop/WorkShops-CodenameOne-master/src/com/mycompany/gui/GestionCategorieForm.java</file>
-            <file>file:/C:/Users/Mega%20Pc/Desktop/WorkShops-CodenameOne-master/src/entity/CommentaireMeditation.java</file>
-            <file>file:/C:/Users/Mega%20Pc/Desktop/WorkShops-CodenameOne-master/src/com/mycompany/gui/GestionMeditationForm.java</file>
-            <file>file:/C:/Users/Mega%20Pc/Desktop/WorkShops-CodenameOne-master/src/com/mycompany/gui/ChartCategorieParnbrMed.java</file>
-            <file>file:/C:/Users/Mega%20Pc/Desktop/WorkShops-CodenameOne-master/src/com/mycompany/gui/ConsulterEspaceMeditation.java</file>
-            <file>file:/C:/Users/Mega%20Pc/Desktop/WorkShops-CodenameOne-master/src/com/mycompany/gui/SignInForm.java</file>
-            <file>file:/C:/Users/Mega%20Pc/Desktop/WorkShops-CodenameOne-master/src/com/mycompany/gui/UpdateMeditationForm.java</file>
-            <file>file:/C:/Users/Mega%20Pc/Desktop/WorkShops-CodenameOne-master/src/com/mycompany/gui/UpdateCategorieForm.java</file>
-            <file>file:/C:/Users/Mega%20Pc/Desktop/WorkShops-CodenameOne-master/src/com/mycompany/myapp/services/ServiceCategorie.java</file>
-            <file>file:/C:/Users/Mega%20Pc/Desktop/WorkShops-CodenameOne-master/src/com/mycompany/gui/AddMeditationForm.java</file>
-            <file>file:/C:/Users/Mega%20Pc/Desktop/WorkShops-CodenameOne-master/src/entity/Categorie.java</file>
-            <file>file:/C:/Users/Mega%20Pc/Desktop/WorkShops-CodenameOne-master/src/com/mycompany/gui/BaseForm.java</file>
-            <file>file:/C:/Users/Mega%20Pc/Desktop/WorkShops-CodenameOne-master/src/com/mycompany/gui/AddCategorieForm.java</file>
-            <file>file:/C:/Users/Mega%20Pc/Desktop/WorkShops-CodenameOne-master/src/com/mycompany/gui/CleanModern.java</file>
-            <file>file:/C:/Users/Mega%20Pc/Desktop/WorkShops-CodenameOne-master/src/com/mycompany/gui/ShowEspaceMeditationForm.java</file>
-            <file>file:/C:/Users/Mega%20Pc/Desktop/WorkShops-CodenameOne-master/src/com/pidevv/MyApplication.java</file>
+            <file>file:/C:/Users/Mega%20Pc/Desktop/mobile/syr_walid_bader/Mobile_CodeName_One-main/WorkShops-CodenameOne-master/src/com/mycompany/gui/SignUpForm.java</file>
+            <file>file:/C:/Users/Mega%20Pc/Desktop/mobile/syr_walid_bader/Mobile_CodeName_One-main/WorkShops-CodenameOne-master/src/com/mycompany/gui/AddMeditationForm.java</file>
+            <file>file:/C:/Users/Mega%20Pc/Desktop/mobile/syr_walid_bader/Mobile_CodeName_One-main/WorkShops-CodenameOne-master/src/com/mycompany/gui/AddCategorieForm.java</file>
+            <file>file:/C:/Users/Mega%20Pc/Desktop/mobile/syr_walid_bader/Mobile_CodeName_One-main/WorkShops-CodenameOne-master/src/com/mycompany/gui/SignInForm.java</file>
+            <file>file:/C:/Users/Mega%20Pc/Desktop/mobile/syr_walid_bader/Mobile_CodeName_One-main/WorkShops-CodenameOne-master/src/com/mycompany/gui/ShowEspaceMeditationForm.java</file>
+            <file>file:/C:/Users/Mega%20Pc/Desktop/mobile/syr_walid_bader/Mobile_CodeName_One-main/WorkShops-CodenameOne-master/src/com/mycompany/gui/ActivateForm.java</file>
+            <file>file:/C:/Users/Mega%20Pc/Desktop/mobile/syr_walid_bader/Mobile_CodeName_One-main/WorkShops-CodenameOne-master/src/com/mycompany/myapp/services/ServiceCategorie.java</file>
+            <file>file:/C:/Users/Mega%20Pc/Desktop/mobile/syr_walid_bader/Mobile_CodeName_One-main/WorkShops-CodenameOne-master/src/com/mycompany/myapp/services/ServiceLogin.java</file>
+            <file>file:/C:/Users/Mega%20Pc/Desktop/mobile/syr_walid_bader/Mobile_CodeName_One-main/WorkShops-CodenameOne-master/src/com/mycompany/gui/GestionMeditationForm.java</file>
+            <file>file:/C:/Users/Mega%20Pc/Desktop/mobile/syr_walid_bader/Mobile_CodeName_One-main/WorkShops-CodenameOne-master/src/com/mycompany/gui/ConsulterEspaceMeditation.java</file>
         </group>
     </open-files>
 </project-private>

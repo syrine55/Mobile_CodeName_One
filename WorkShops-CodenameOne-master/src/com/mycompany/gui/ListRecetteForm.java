@@ -44,6 +44,8 @@ import java.util.ArrayList;
 public class ListRecetteForm extends BaseForm{
 Form     current = this;
  public ListRecetteForm(Resources res) {
+   
+        
         super("Newsfeed",BoxLayout.y());
       Toolbar tb=new Toolbar(true);
       
@@ -52,10 +54,9 @@ Form     current = this;
       setTitle("Categorie Recette");
       getContentPane().setScrollVisible(false);
       
-      
-      tb.addSearchCommand(e->{
-          
-      });
+      super.addSideMenu(res);
+        tb.addSearchCommand(e -> {
+        });
       Tabs swipe =new Tabs();
       Label sw1=new Label();
       Label sw2=new Label();

@@ -58,6 +58,7 @@ import com.codename1.ui.layouts.LayeredLayout;
 import com.codename1.ui.plaf.Style;
 import com.codename1.ui.plaf.UIManager;
 import com.codename1.ui.util.Resources;
+import com.mycompany.myapp.services.ServiceLogin;
 import com.mycompany.myapp.services.ServiceMeditation;
 import entity.Meditation;
 import java.io.IOException;
@@ -135,7 +136,7 @@ public class ConsulterEspaceMeditation extends BaseForm {
             URLImage urlimage = URLImage.createToStorage(enc, "http://127.0.0.1/pidev/public/uploads/" + m.getImage(), "http://127.0.0.1/pidev/public/uploads/" + m.getImage());
             img2.setImage(urlimage);
             Image i = URLImage.createToStorage(enc, "http://127.0.0.1/pidev/public/uploads/" + m.getImage(), "http://127.0.0.1/pidev/public/uploads/" + m.getImage(), URLImage.RESIZE_SCALE);
-            addButton(i, m.getNom() + "\n" + m.getCategorie(),ServiceMeditation.getInstance().getNbLikeParUnSeulEspace(m.getId()),ServiceMeditation.getInstance().getNbDisLikeParUnSeulEspace(m.getId()),ServiceMeditation.getInstance().checkLikeParUnSeulEspace(72,m.getId()),ServiceMeditation.getInstance().checkdisLikeParUnSeulEspace(72,m.getId()), ServiceMeditation.getInstance().getNbCommentParUnSeulEspace(m.getId()),res,m);
+            addButton(i, m.getNom() + "\n" + m.getCategorie(),ServiceMeditation.getInstance().getNbLikeParUnSeulEspace(m.getId()),ServiceMeditation.getInstance().getNbDisLikeParUnSeulEspace(m.getId()),ServiceMeditation.getInstance().checkLikeParUnSeulEspace(ServiceLogin.id_user,m.getId()),ServiceMeditation.getInstance().checkdisLikeParUnSeulEspace(ServiceLogin.id_user,m.getId()), ServiceMeditation.getInstance().getNbCommentParUnSeulEspace(m.getId()),res,m);
         }
 
       

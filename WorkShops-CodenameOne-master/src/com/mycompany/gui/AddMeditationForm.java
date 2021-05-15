@@ -61,7 +61,7 @@ public class AddMeditationForm extends BaseForm {
 
         Label spacer1 = new Label();
         Label spacer2 = new Label();
-        addTab(swipe, res.getImage("news-item.jpg"), spacer1, "", "", "Bienvenue dans nos espace de méditation.");
+        addTab(swipe, res.getImage("med.jpg"), spacer1, "", "", "Bienvenue dans nos espace de méditation.");
         //addTab(swipe, res.getImage("dog.jpg"), spacer2, "100 Likes  ", "66 Comments", "Dogs are cute: story at 11");
 
         swipe.setUIID("Container");
@@ -181,12 +181,12 @@ public class AddMeditationForm extends BaseForm {
         Label likes = new Label(likesStr);
         Style heartStyle = new Style(likes.getUnselectedStyle());
         heartStyle.setFgColor(0xff2d55);
-        FontImage heartImage = FontImage.createMaterial(FontImage.MATERIAL_FAVORITE, heartStyle);
-        likes.setIcon(heartImage);
+        //FontImage heartImage = FontImage.createMaterial(FontImage.MATERIAL_FAVORITE, heartStyle);
+        //likes.setIcon(heartImage);
         likes.setTextPosition(RIGHT);
 
         Label comments = new Label(commentsStr);
-        FontImage.setMaterialIcon(comments, FontImage.MATERIAL_CHAT);
+        //FontImage.setMaterialIcon(comments, FontImage.MATERIAL_CHAT);
         if(img.getHeight() > Display.getInstance().getDisplayHeight() / 2) {
             img = img.scaledHeight(Display.getInstance().getDisplayHeight() / 2);
         }

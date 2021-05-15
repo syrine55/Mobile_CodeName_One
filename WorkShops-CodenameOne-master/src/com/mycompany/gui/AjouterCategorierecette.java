@@ -49,9 +49,9 @@ public class AjouterCategorierecette extends BaseForm{
       getContentPane().setScrollVisible(false);
       
       
-      tb.addSearchCommand(e->{
-          
-      });
+      super.addSideMenu(res);
+        tb.addSearchCommand(e -> {
+        });
       Tabs swipe =new Tabs();
       Label sw1=new Label();
       Label sw2=new Label();

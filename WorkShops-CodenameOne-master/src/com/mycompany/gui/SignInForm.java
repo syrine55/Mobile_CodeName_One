@@ -29,6 +29,7 @@ import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.layouts.FlowLayout;
 import com.codename1.ui.util.Resources;
+import com.mycompany.myapp.services.ServiceLogin;
 
 /**
  * Sign in UI
@@ -55,6 +56,12 @@ public class SignInForm extends BaseForm {
         username.setSingleLineTextArea(false);
         password.setSingleLineTextArea(false);
         Button signIn = new Button("Sign In");
+        
+        Button face = new Button("Facebook Signin");
+            face.addActionListener(e -> {   
+            FBLogin6 fb = new FBLogin6();
+           fb.start();});
+        
         Button signUp = new Button("Sign Up");
         signUp.addActionListener(e -> new SignUpForm(res).show());
         signUp.setUIID("Link");
@@ -66,12 +73,14 @@ public class SignInForm extends BaseForm {
                 new FloatingHint(password),
                 createLineSeparator(),
                 signIn,
+                face,
                 FlowLayout.encloseCenter(doneHaveAnAccount, signUp)
         );
         content.setScrollableY(true);
         add(BorderLayout.SOUTH, content);
         signIn.requestFocus();
-        signIn.addActionListener(e -> new ConsulterEspaceMeditation(res).show());
+        signIn.addActionListener(e -> ServiceLogin.getInstance().login(username, password, res));
+        //new ConsulterEspaceMeditation(res).show()
     }
     
 }

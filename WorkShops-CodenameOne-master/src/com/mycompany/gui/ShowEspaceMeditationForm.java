@@ -26,13 +26,14 @@ import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.layouts.FlowLayout;
 import com.codename1.ui.plaf.Style;
 import com.codename1.ui.util.Resources;
+import com.mycompany.myapp.services.ServiceLogin;
 import com.mycompany.myapp.services.ServiceMeditation;
 import entity.CommentaireMeditation;
 import entity.Meditation;
 import java.util.ArrayList;
 
 /**
- *
+ *ServiceLogin.id_user
  * @author Mega Pc
  */
 public class ShowEspaceMeditationForm extends BaseForm{
@@ -110,17 +111,17 @@ public class ShowEspaceMeditationForm extends BaseForm{
             
             like.addPointerPressedListener(e->{
                 result=new ArrayList<>();
-                result=ServiceMeditation.getInstance().getEffectuerLikeParUnSeulEspace(72,mm.getId());
+                result=ServiceMeditation.getInstance().getEffectuerLikeParUnSeulEspace(ServiceLogin.id_user,mm.getId());
                 //likeCount,DislikeCount,checklike,checkDislike
                 //result.get(3),result.get(4),result.get(1),result.get(2)
-                new ShowEspaceMeditationForm(img,title,result.get(2),result.get(3),result.get(0),result.get(1),commentCount, res, mm).show();
+                new ShowEspaceMeditationForm(img,title,ServiceMeditation.getInstance().getNbLikeParUnSeulEspace(mm.getId()),ServiceMeditation.getInstance().getNbDisLikeParUnSeulEspace(mm.getId()),result.get(0),result.get(1),commentCount, res, mm).show();
             });
             dislike.addPointerPressedListener(e->{
                 result=new ArrayList<>();
-                result=ServiceMeditation.getInstance().getEffectuerUnLikeParUnSeulEspace(72,mm.getId());
+                result=ServiceMeditation.getInstance().getEffectuerUnLikeParUnSeulEspace(ServiceLogin.id_user,mm.getId());
                 //likeCount,DislikeCount,checklike,checkDislike
                 //result.get(3),result.get(4),result.get(1),result.get(2)
-                new ShowEspaceMeditationForm(img,title,result.get(2),result.get(3),result.get(0),result.get(1),commentCount, res, mm).show();
+                new ShowEspaceMeditationForm(img,title,ServiceMeditation.getInstance().getNbLikeParUnSeulEspace(mm.getId()),ServiceMeditation.getInstance().getNbDisLikeParUnSeulEspace(mm.getId()),result.get(0),result.get(1),commentCount, res, mm).show();
             });
             
             img2.getStyle().setTextDecoration(0x585858);
@@ -141,7 +142,7 @@ public class ShowEspaceMeditationForm extends BaseForm{
             cnt3.addAll(tfcom,btnValider);
             
             btnValider.addActionListener(e->{
-                ServiceMeditation.getInstance().addcommentaire(72, mm.getId(), tfcom.getText());
+                ServiceMeditation.getInstance().addcommentaire(ServiceLogin.id_user, mm.getId(), tfcom.getText());
                 new ShowEspaceMeditationForm(img,title,likeCount, DislikeCount,checklike,checkDislike,commentCount,res,mm ).show();
             });
             
