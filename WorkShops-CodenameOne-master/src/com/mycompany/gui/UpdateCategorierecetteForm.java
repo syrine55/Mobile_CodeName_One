@@ -50,10 +50,10 @@ public class UpdateCategorierecetteForm extends BaseForm{
       setTitle("Categorie Recette");
       getContentPane().setScrollVisible(false);
       
-      
-      super.addSideMenu(res);
-        tb.addSearchCommand(e -> {
-        });
+        super.addSideMenu(res);
+      tb.addSearchCommand(e->{
+          
+      });
       Tabs swipe =new Tabs();
       Label sw1=new Label();
       Label sw2=new Label();

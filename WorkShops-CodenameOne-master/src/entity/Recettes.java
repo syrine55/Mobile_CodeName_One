@@ -30,6 +30,13 @@ public Recettes(int idcategorie) {this.idcategorie=idcategorie;
         return createur;
     }
 
+    public Recettes(String nom, String about, String img, String video) {
+        this.nom = nom;
+        this.about = about;
+        this.img = img;
+        this.video = video;
+    }
+
 public Recettes(int idcategorie, String nom,  String about, String img, String video, int createur) {
         this.idcategorie = idcategorie;
 

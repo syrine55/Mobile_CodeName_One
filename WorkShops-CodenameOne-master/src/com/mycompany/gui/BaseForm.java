@@ -83,11 +83,13 @@ public class BaseForm extends Form {
                 //        new Label(res.getImage("profile-pic.jpg"), "PictureWhiteBackgrond"))
         ));
         
-        tb.addMaterialCommandToSideMenu("Consulter Meditation", FontImage.MATERIAL_UPDATE, e -> new ConsulterEspaceMeditation(res).show());
+        tb.addMaterialCommandToSideMenu("Consulter Meditation", FontImage.MATERIAL_UPDATE, e -> {new ConsulterEspaceMeditation(res).show();
+        });
         if (ServiceLogin.role_user.equals("specialisteM")) {
-            tb.addMaterialCommandToSideMenu("Gérer CatégorieM", FontImage.MATERIAL_EDIT, e -> new GestionCategorieForm(res).show());
+            tb.addMaterialCommandToSideMenu("Gérer Catégorie Méditation", FontImage.MATERIAL_EDIT, e -> new GestionCategorieForm(res).show());
             tb.addMaterialCommandToSideMenu("Gérer Méditation", FontImage.MATERIAL_EDIT, e -> new GestionMeditationForm(res).show());
         }
+        tb.addMaterialCommandToSideMenu("Gérer Catégorie Recette", FontImage.MATERIAL_EDIT, e -> new ListeCategorierecetteForm(res).show());
         tb.addMaterialCommandToSideMenu("Gérer Recette", FontImage.MATERIAL_EDIT, e -> new ListRecetteForm(res).show());
         tb.addMaterialCommandToSideMenu("Profile", FontImage.MATERIAL_SETTINGS, e -> new ProfileForm(res).show());
         tb.addMaterialCommandToSideMenu("Logout", FontImage.MATERIAL_EXIT_TO_APP, e -> new WalkthruForm(res).show());

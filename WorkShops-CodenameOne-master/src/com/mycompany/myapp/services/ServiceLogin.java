@@ -20,6 +20,7 @@ import com.codename1.ui.TextField;
 import com.codename1.ui.Toolbar;
 import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.util.Resources;
+import com.mycompany.gui.BaseForm;
 import com.mycompany.gui.ConsulterEspaceMeditation;
 //import com.codename1.uikit.materialscreens.WalkthruForm;
 
@@ -32,10 +33,10 @@ import java.util.Map;
  *
  * @author ISLEM_PC
  */
-public class ServiceLogin {
+public class ServiceLogin{
 public static int id_user;
-public static String role_user;
-
+public static String role_user,json;
+public String ch;
 
    public ArrayList<FosUser> fosmobi;
 
@@ -147,6 +148,7 @@ public static String role_user;
                   //  Dialog.show("Hi", "Welcome back", new Command("OK"));
                        Toolbar.setGlobalToolbar(false);
             new ConsulterEspaceMeditation(res).show();
+       
             Toolbar.setGlobalToolbar(true);
                     
 
@@ -164,4 +166,63 @@ public static String role_user;
     }
 
 
+    
+    /*public String getPasswordEmail(TextField email,Resources res){
+        String url=Statics.BASE_URL2+"getPasswordEmail?email="+email.getText().toString();
+        String ch;
+        req=new ConnectionRequest(url,false);
+        System.out.println(url);
+        req.setUrl(url);
+        
+        req.addResponseListener(e-> {
+          JSONParser j = new JSONParser();
+                 json = new String(req.getResponseData())+"";
+                try {
+                    
+                        System.out.println(json);
+                        Map<String,Object> password = j.parseJSON(new CharArrayReader(json.toCharArray()));
+                        for (Map<String, Object> obj : password) {
+                        ch = obj.get("title").toString();
+                    }
+                        
+                    
+                } catch (IOException ex) {        
+                    ex.printStackTrace();
+                }
+        });
+        NetworkManager.getInstance().addToQueueAndWait(req);
+       return json;
+    }*/
+    
+    
+    public String mdpoublier(String jsonText){
+        String ch="";
+        JSONParser j=new JSONParser();
+        Map<String,Object> categoriesListJson;
+        try {
+            categoriesListJson = j.parseJSON(new CharArrayReader(jsonText.toCharArray()));
+            List<Map<String,Object>> list= (List<Map<String,Object>>)categoriesListJson.get("root");
+            for(Map<String,Object>obj:list){
+                ch=obj.get("pass").toString();
+            }
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return ch;
+    }
+    
+    public String getDupliquerNomMeditation(TextField email,Resources res){
+        String url = Statics.BASE_URL2+"getPasswordEmail?email="+email.getText().toString();
+        req.setUrl(url);
+        req.setPost(false);
+        req.addResponseListener(new ActionListener<NetworkEvent>() {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                ch = mdpoublier(new String(req.getResponseData()));
+                req.removeResponseListener(this);
+            }
+        });
+        NetworkManager.getInstance().addToQueueAndWait(req);
+        return ch;
+    }
 }

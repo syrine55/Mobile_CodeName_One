@@ -43,20 +43,21 @@ import java.util.ArrayList;
  */
 public class ListRecetteForm extends BaseForm{
 Form     current = this;
+Form prev;
  public ListRecetteForm(Resources res) {
-   
-        
         super("Newsfeed",BoxLayout.y());
+        prev=this;
       Toolbar tb=new Toolbar(true);
       
       setToolbar(tb);
       getTitleArea().setUIID("Container");
-      setTitle("Categorie Recette");
+      setTitle(" Recette");
       getContentPane().setScrollVisible(false);
       
-      super.addSideMenu(res);
-        tb.addSearchCommand(e -> {
-        });
+        super.addSideMenu(res);
+      tb.addSearchCommand(e->{
+          
+      });
       Tabs swipe =new Tabs();
       Label sw1=new Label();
       Label sw2=new Label();
@@ -111,7 +112,7 @@ Form     current = this;
         ButtonGroup barGroup = new ButtonGroup();
         RadioButton mesListes = RadioButton.createToggle("Mes Recettes", barGroup);
         mesListes.setUIID("SelectBar");
-        RadioButton liste = RadioButton.createToggle("Categorie", barGroup);
+        RadioButton liste = RadioButton.createToggle("Statistiques", barGroup);
         liste.setUIID("SelectBar");
         RadioButton partage = RadioButton.createToggle("Ajouter Recette ", barGroup);
         partage.setUIID("SelectBar");
@@ -126,7 +127,7 @@ Form     current = this;
 
         liste.addActionListener((e) -> {
     refreshTheme();
-        new ListeCategorierecetteForm(res).show();
+        new RecetteStatForm( prev ).show();
             
         });
         partage.addActionListener((e) -> {
@@ -230,6 +231,17 @@ add(createLineSeparator(0xeeeeee));
 
     private void addButton( Image img,Recettes rec,Resources res) {
  int height=Display.getInstance().convertToPixels(11.5f);
+ EncodedImage enc = EncodedImage.createFromImage(res.getImage("back-logo.jpg"), false);
+             Image i = URLImage.createToStorage(enc, "http://127.0.0.1/pidev/public/uploads/" + rec.getImg(), "http://127.0.0.1/pidev/public/uploads/" + rec.getImg(), URLImage.RESIZE_SCALE);
+int height2 = Display.getInstance().convertToPixels(11.5f);
+           int width2 = Display.getInstance().convertToPixels(14f);
+           Button img2 = new Button(i.fill(width2, height2));
+           img2.setUIID("Label");
+           img2.getStyle().setBgColor(0xFBFBEF);
+           img2.getStyle().setBackgroundGradientEndColor(0xFBFBEF);
+           img2.getStyle().setFgColor(0xFBFBEF);
+           
+           
          int width=Display.getInstance().convertToPixels(14f);
          Button image =new Button (img.fill(width, height));
          image.setUIID("Label");
@@ -298,7 +310,7 @@ add(createLineSeparator(0xeeeeee));
                  new UpdateRecetteForm(res, rec).show();
       }
     }); 
-        c.add(BorderLayout.CENTER,BoxLayout.encloseY(BoxLayout.encloseX(t,modif,delete),t2));
+        c.add(BorderLayout.CENTER,BoxLayout.encloseY(BoxLayout.encloseX(img2,t,modif,delete),t2));
         add(c);
  
     }    

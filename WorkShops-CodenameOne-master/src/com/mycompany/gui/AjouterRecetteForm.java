@@ -48,19 +48,21 @@ import java.util.ArrayList;
 public class AjouterRecetteForm  extends BaseForm{
    
     Form current;
+    Form prev;
     public AjouterRecetteForm(Resources res){
       super("Newsfeed",BoxLayout.y());
+      prev=this;
       Toolbar tb=new Toolbar(true);
       current=this;
       setToolbar(tb);
       getTitleArea().setUIID("Container");
       setTitle("Recettes Anti-Stress");
       getContentPane().setScrollVisible(false);
+        super.addSideMenu(res);
       
-      
-      super.addSideMenu(res);
-        tb.addSearchCommand(e -> {
-        });
+      tb.addSearchCommand(e->{
+          
+      });
       Tabs swipe =new Tabs();
       Label sw1=new Label();
       Label sw2=new Label();
@@ -113,7 +115,7 @@ public class AjouterRecetteForm  extends BaseForm{
         ButtonGroup barGroup = new ButtonGroup();
         RadioButton mesListes = RadioButton.createToggle("Mes Recettes", barGroup);
         mesListes.setUIID("SelectBar");
-        RadioButton liste = RadioButton.createToggle("Categorie", barGroup);
+        RadioButton liste = RadioButton.createToggle("Statistiques", barGroup);
         liste.setUIID("SelectBar");
         RadioButton partage = RadioButton.createToggle("Ajouter Recette ", barGroup);
         partage.setUIID("SelectBar");
@@ -127,7 +129,7 @@ mesListes.addActionListener((e) -> {
 
         liste.addActionListener((e) -> {
     refreshTheme();
-        new ListeCategorierecetteForm(res).show();
+        new RecetteStatForm(prev ).show();
             
         });
         partage.addActionListener((e) -> {
@@ -162,9 +164,9 @@ mesListes.addActionListener((e) -> {
       addStringValue("Nom",objet);
         ComboBox cc=new ComboBox();
         ArrayList <Categorierecette> list=CategorierecetteService.getInstance().getAllTasks();
-        for (Categorierecette rec:list){
+        for (Categorierecette rec:list){// (Categorierecette) cc.getSelectedItem()
             
-            cc.addItem(rec.getNom());
+            cc.addItem(rec);
             
         }     
         cc.addItem(liste);
@@ -173,36 +175,25 @@ mesListes.addActionListener((e) -> {
       objet2.setUIID("TextFieldBlack");
       addStringValue("Ingredients",objet2);  
       
-      TextField objet3=new TextField("","lien img");
-      objet3.setUIID("TextFieldBlack");
-      addStringValue("img",objet3);
-       Button btnimg=new Button("Ajouter Image");
-      addStringValue("",btnimg);
-        ActionListener callback = e->{
-   if (e != null && e.getSource() != null) {
-       String filePath = (String)e.getSource(); 
-   }
-}; 
+     
 /* if (FileChooser.isAvailable()) {
   FileChooser.showOpenDialog(".pdf,application/pdf,.gif,image/gif,.png,image/png,.jpg,image/jpg,.tif,image/tif,.jpeg", callback);
 } else {
     Display.getInstance().openGallery(callback, Display.GALLERY_IMAGE);
 }   */ 
-       TextField objet4=new TextField("","lien vid");
-      objet4.setUIID("TextFieldBlack");
-      addStringValue("vid",objet4);
+      
        Button btnAjouter=new Button("Ajouter");
       addStringValue("",btnAjouter);
       btnAjouter.addActionListener((e)->{
         try{
-            if (objet.getText()==""||objet2.getText()==""||objet3.getText()==""||objet4.getText()==""){
+            if (objet.getText()==""||objet2.getText()=="" ){
                Dialog.show("Erreur","Veuillez verifier vos données", "Annuler", "ok");
                 
             }else{
                  InfiniteProgress ip=new  InfiniteProgress();
                 final Dialog d=ip.showInfiniteBlocking();
-                 Recettes c=new Recettes(36,String.valueOf(objet.getText()).toString(),String.valueOf(objet2.getText()).toString(),String.valueOf(objet3.getText()).toString(),String.valueOf(objet4.getText()).toString());
-                RecetteService.getInstance().addCat(c);
+                 Recettes c=new Recettes(String.valueOf(objet.getText()).toString(),String.valueOf(objet2.getText()).toString(),"Annuler","Annuler" );
+                RecetteService.getInstance().addCat(c,(Categorierecette) cc.getSelectedItem());
                 d.dispose();
                 
                 new ListRecetteForm(res).show();

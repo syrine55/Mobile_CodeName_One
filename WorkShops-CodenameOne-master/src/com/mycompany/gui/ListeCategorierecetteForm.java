@@ -55,10 +55,10 @@ public class ListeCategorierecetteForm extends BaseForm{
       setTitle("Categorie Recette");
       getContentPane().setScrollVisible(false);
       
-      
-      super.addSideMenu(res);
-        tb.addSearchCommand(e -> {
-        });
+        super.addSideMenu(res);
+      tb.addSearchCommand(e->{
+          
+      });
       Tabs swipe =new Tabs();
       Label sw1=new Label();
       Label sw2=new Label();
@@ -113,7 +113,7 @@ public class ListeCategorierecetteForm extends BaseForm{
         ButtonGroup barGroup = new ButtonGroup();
         RadioButton mesListes = RadioButton.createToggle("Mes Categories", barGroup);
         mesListes.setUIID("SelectBar");
-        RadioButton liste = RadioButton.createToggle("Recette", barGroup);
+          RadioButton liste = RadioButton.createToggle("Recette", barGroup);
         liste.setUIID("SelectBar");
         RadioButton partage = RadioButton.createToggle("Ajouter Catégorie", barGroup);
         partage.setUIID("SelectBar");
@@ -121,22 +121,25 @@ public class ListeCategorierecetteForm extends BaseForm{
 
 
         mesListes.addActionListener((e) -> {
+             mesListes.setUIID("SelectBar");
         new ListeCategorierecetteForm(res).show();
             refreshTheme();
+            
         });
-
-          liste.addActionListener((e) -> {
+ liste.addActionListener((e) -> {
     refreshTheme();
         new ListRecetteForm(res).show();
         });
+ 
         partage.addActionListener((e) -> {
+             partage.setUIID("SelectBar");
         new AjouterCategorierecette(res).show();
             refreshTheme();
         });
         
         
         add(LayeredLayout.encloseIn(
-                GridLayout.encloseIn(3, mesListes, liste, partage),
+                GridLayout.encloseIn(3, mesListes,  partage),
                 FlowLayout.encloseBottom(arrow)
         ));
 
@@ -147,8 +150,7 @@ public class ListeCategorierecetteForm extends BaseForm{
             updateArrowPosition(partage, arrow);
         });
         bindButtonSelection(mesListes, arrow);
-        bindButtonSelection(liste, arrow);
-        bindButtonSelection(partage, arrow);
+         bindButtonSelection(partage, arrow);
         // special case for rotation
         addOrientationListener(e -> {
             updateArrowPosition(barGroup.getRadioButton(barGroup.getSelectedIndex()), arrow);

@@ -10,6 +10,7 @@ import com.codename1.components.ScaleImageLabel;
 import com.codename1.components.SpanLabel;
 import com.codename1.ui.Button;
 import com.codename1.ui.ButtonGroup;
+import com.codename1.ui.ComboBox;
 import com.codename1.ui.Component;
 import static com.codename1.ui.Component.BOTTOM;
 import static com.codename1.ui.Component.CENTER;
@@ -37,6 +38,7 @@ import com.mycompany.myapp.services.CategorierecetteService;
 import com.mycompany.myapp.services.RecetteService;
 import entity.Categorierecette;
 import entity.Recettes;
+import java.util.ArrayList;
 
 /**
  *
@@ -44,20 +46,21 @@ import entity.Recettes;
  */
 public class UpdateRecetteForm extends BaseForm{
       Form current;
+      Form prev;
     public UpdateRecetteForm(Resources res,Recettes c){
       super("Newsfeed",BoxLayout.y());
       Toolbar tb=new Toolbar(true);
+      prev=this;
       current=this;
       setToolbar(tb);
       getTitleArea().setUIID("Container");
       setTitle("Recettes Anti-Stress");
       getContentPane().setScrollVisible(false);
+        super.addSideMenu(res);
       
-      
-      super.addSideMenu(res);
-        tb.addSearchCommand(e -> {
-        });
-        
+      tb.addSearchCommand(e->{
+          
+      });
       Tabs swipe =new Tabs();
       Label sw1=new Label();
       Label sw2=new Label();
@@ -110,7 +113,7 @@ public class UpdateRecetteForm extends BaseForm{
         ButtonGroup barGroup = new ButtonGroup();
         RadioButton mesListes = RadioButton.createToggle("Mes Recettes", barGroup);
         mesListes.setUIID("SelectBar");
-        RadioButton liste = RadioButton.createToggle("Categorie", barGroup);
+        RadioButton liste = RadioButton.createToggle("Statistiques", barGroup);
         liste.setUIID("SelectBar");
         RadioButton partage = RadioButton.createToggle("Ajouter Recette", barGroup);
         partage.setUIID("SelectBar");
@@ -124,7 +127,7 @@ mesListes.addActionListener((e) -> {
 
         liste.addActionListener((e) -> {
     refreshTheme();
-        new ListeCategorierecetteForm(res).show();
+        new RecetteStatForm(prev ).show();
             
         });
         partage.addActionListener((e) -> {
@@ -157,43 +160,41 @@ mesListes.addActionListener((e) -> {
       TextField objet=new TextField("","Saisir Nom ");
       objet.setUIID("TextFieldBlack");
       addStringValue("Nom",objet);
+       ComboBox cc=new ComboBox();
+        ArrayList <Categorierecette> list=CategorierecetteService.getInstance().getAllTasks();
+        for (Categorierecette rec:list){
+            
+          cc.addItem(rec);
+            
+        }     
+        cc.addItem(liste);
+        add(cc);
       objet.setText(c.getNom());
       TextField objet2=new TextField("","Saisir Ingredients ");
       objet2.setUIID("TextFieldBlack");
       addStringValue("Ingredients",objet2);  
       objet2.setText(c.getAbout());
-      TextField objet3=new TextField("","lien img");
-      objet3.setUIID("TextFieldBlack");
-      objet3.setText(c.getImg());
-      addStringValue("img",objet3);
-       Button btnimg=new Button("Ajouter Image");
-      addStringValue("",btnimg);
-        ActionListener callback = e->{
-   if (e != null && e.getSource() != null) {
-       String filePath = (String)e.getSource(); 
-   }
-}; 
+       
+      
 /* if (FileChooser.isAvailable()) {
   FileChooser.showOpenDialog(".pdf,application/pdf,.gif,image/gif,.png,image/png,.jpg,image/jpg,.tif,image/tif,.jpeg", callback);
 } else {
     Display.getInstance().openGallery(callback, Display.GALLERY_IMAGE);
 }   */ 
-       TextField objet4=new TextField("","lien vid");
-      objet4.setUIID("TextFieldBlack");
-      addStringValue("vid",objet4);
-      objet3.setText(c.getVideo());
-       Button btnAjouter=new Button("Ajouter");
+    
+      
+       Button btnAjouter=new Button("Update");
       addStringValue("",btnAjouter);
       btnAjouter.addActionListener((e)->{
         try{
-            if (objet.getText()==""||objet2.getText()==""||objet3.getText()==""||objet4.getText()==""){
+            if (objet.getText()==""||objet2.getText()=="" ){
                Dialog.show("Erreur","Veuillez verifier vos données", "Annuler", "ok");
                 
             }else{
                  InfiniteProgress ip=new  InfiniteProgress();
                 final Dialog d=ip.showInfiniteBlocking();
-                 Recettes  r=new Recettes(45,String.valueOf(objet.getText()).toString(),String.valueOf(objet2.getText()).toString(),String.valueOf(objet3.getText()).toString(),String.valueOf(objet4.getText()).toString());
-                RecetteService.getInstance().addCat(r);
+                 Recettes  r=new Recettes(c.getId(),36,String.valueOf(objet.getText()).toString(),String.valueOf(objet2.getText()).toString(),"Annuler","Annuler" );
+                RecetteService.getInstance().modifierCat(r,(Categorierecette) cc.getSelectedItem());
                 d.dispose();
                 
                 new ListRecetteForm(res).show();

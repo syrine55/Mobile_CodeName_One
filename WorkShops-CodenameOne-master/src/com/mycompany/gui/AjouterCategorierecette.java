@@ -47,11 +47,11 @@ public class AjouterCategorierecette extends BaseForm{
       getTitleArea().setUIID("Container");
       setTitle("Categorie Recette");
       getContentPane().setScrollVisible(false);
+        super.addSideMenu(res);
       
-      
-      super.addSideMenu(res);
-        tb.addSearchCommand(e -> {
-        });
+      tb.addSearchCommand(e->{
+          
+      });
       Tabs swipe =new Tabs();
       Label sw1=new Label();
       Label sw2=new Label();

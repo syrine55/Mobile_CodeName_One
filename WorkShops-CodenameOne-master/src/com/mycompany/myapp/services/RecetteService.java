@@ -14,6 +14,7 @@ import com.codename1.l10n.DateFormat;
 import com.codename1.l10n.SimpleDateFormat;
 import com.codename1.ui.events.ActionListener;
 import com.mycompany.myapp.utils.Statics;
+import entity.Categorierecette;
 import entity.Recettes;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -27,7 +28,8 @@ import java.util.Map;
  */
 public class RecetteService {
      public ArrayList<Recettes> tasks;
-    
+    public ArrayList<Long> r;
+    public ArrayList<String> medcat;
     public static RecetteService instance=null;
     public boolean resultOK;
     private ConnectionRequest req;
@@ -92,7 +94,7 @@ public class RecetteService {
         NetworkManager.getInstance().addToQueueAndWait(req);
         return tasks;
     }
-    
+ 
         public ArrayList<Recettes> parseTasks(String jsonText){
         try {
             tasks=new ArrayList<>();
@@ -130,8 +132,8 @@ public class RecetteService {
         return tasks;
     }
         
-           public boolean addCat(Recettes t) {
-        String url = Statics.BASE_URL + "/addjson?nom=" + t.getNom()+"&about="+t.getAbout()+ "&img="+t.getImg()+"&vid="+t.getVideo()+"&idcat="+t.getIdcategorie(); //création de l'URL
+           public boolean addCat(Recettes t,Categorierecette x) {
+        String url = Statics.BASE_URL + "/addjson?nom=" + t.getNom()+"&about="+t.getAbout()+"&idcat="+x.getId(); //création de l'URL
       
         req.setUrl(url); 
         req.addResponseListener(new ActionListener<NetworkEvent>() {
@@ -165,8 +167,8 @@ public class RecetteService {
         NetworkManager.getInstance().addToQueueAndWait(req);
         return resultOK;
     }
-  public boolean modifierCat(Recettes t) {
-        String url = Statics.BASE_URL + "/modifierjson/" + t.getId()+"?nom="+ t.getNom()+"about="+t.getAbout()+"date_creation"+t.getDate_creation()+"img="+t.getImg()+"vid"+t.getVideo()+"idcat="+t.getIdcategorie();  
+  public boolean modifierCat(Recettes t,Categorierecette x) {
+        String url = Statics.BASE_URL + "/modifierjson/" + t.getId()+"?nom="+ t.getNom()+"&about="+t.getAbout() + "&idcat="+x.getId();  
       
         req.setUrl(url); 
         req.addResponseListener(new ActionListener<NetworkEvent>() {
@@ -181,5 +183,88 @@ public class RecetteService {
        
         NetworkManager.getInstance().addToQueueAndWait(req);
         return resultOK;
+    }
+  
+ public ArrayList<Long> chart(){
+    
+        String url = Statics.BASE_URL+"/RjsonNBR/chart";
+        req.setUrl(url);
+        req.setPost(false);
+        req.addResponseListener(new ActionListener<NetworkEvent>() {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                 String reponsejson=new String(req.getResponseData());
+                 r = parsenbRParCategorie(new String(req.getResponseData()));
+                 req.removeResponseListener(this);
+            }
+        });
+        NetworkManager.getInstance().addToQueueAndWait(req); 
+        return r;
+    }
+ 
+   public ArrayList<String> parseParCategorie(String jsonText){
+      ArrayList  r=new ArrayList<>();
+        JSONParser j=new JSONParser();
+        Map<String,Object> meditationsListJson;
+        try {
+            meditationsListJson = j.parseJSON(new CharArrayReader(jsonText.toCharArray()));
+            List<String> list= (ArrayList<String>)meditationsListJson.get("root");
+            System.out.println(list);
+            System.out.println("=>"+list.size());
+            for (int i = 0; i < list.size(); i++) {
+                System.out.println(list.get(i));
+                r.add(list.get(i));
+            }
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return r;
+    }
+  public ArrayList<Long> parsenbRParCategorie(String jsonText){
+     ArrayList   medcat=new ArrayList<>();
+        JSONParser j=new JSONParser();
+        Map<String, Object> response;
+        Map<String,Object> meditationsListJson;
+        try {
+            meditationsListJson = j.parseJSON(new CharArrayReader(jsonText.toCharArray()));
+            List<Double> list= (ArrayList<Double>)meditationsListJson.get("root");
+            System.out.println(list);
+            System.out.println("=>"+list.size());
+            for (int i = 0; i < list.size(); i++) {
+                System.out.println(Math.round(list.get(i)));
+                medcat.add(Math.round(list.get(i)));
+            }
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return medcat;
     } 
+   public ArrayList<Long> getAllnbERParCategorie(){
+        String url = Statics.BASE_URL+"/RjsonNBR/chart";
+        req.setUrl(url);
+        req.setPost(false);
+        req.addResponseListener(new ActionListener<NetworkEvent>() {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                 r= parsenbRParCategorie(new String(req.getResponseData()));
+                req.removeResponseListener(this);
+            }
+        });
+        NetworkManager.getInstance().addToQueueAndWait(req);
+        return r;
+    }
+  public ArrayList<String> getAllParCategorie(){
+        String url = Statics.BASE_URL+"/RjsonCat/chart";
+        req.setUrl(url);
+        req.setPost(false);
+        req.addResponseListener(new ActionListener<NetworkEvent>() {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                medcat = parseParCategorie(new String(req.getResponseData()));
+                req.removeResponseListener(this);
+            }
+        });
+        NetworkManager.getInstance().addToQueueAndWait(req);
+        return medcat;
+    }  
 }
