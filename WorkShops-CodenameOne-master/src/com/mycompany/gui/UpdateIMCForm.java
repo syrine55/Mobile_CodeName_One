@@ -54,9 +54,10 @@ public class UpdateIMCForm extends BaseForm{
       getContentPane().setScrollVisible(false);
       
       
-      tb.addSearchCommand(e->{
-          
-      });
+      super.addSideMenu(res);
+        tb.addSearchCommand(e -> {
+        });
+        
       Tabs swipe =new Tabs();
       Label sw1=new Label();
       Label sw2=new Label();
@@ -107,11 +108,11 @@ public class UpdateIMCForm extends BaseForm{
         add(LayeredLayout.encloseIn(swipe, radioContainer));
 
         ButtonGroup barGroup = new ButtonGroup();
-        RadioButton mesListes = RadioButton.createToggle("Mes Recettes", barGroup);
+        RadioButton mesListes = RadioButton.createToggle("Mes IMC", barGroup);
         mesListes.setUIID("SelectBar");
-        RadioButton liste = RadioButton.createToggle("Categorie", barGroup);
+        RadioButton liste = RadioButton.createToggle("Exercices", barGroup);
         liste.setUIID("SelectBar");
-        RadioButton partage = RadioButton.createToggle("Ajouter Recette", barGroup);
+        RadioButton partage = RadioButton.createToggle("Ajouter IMC", barGroup);
         partage.setUIID("SelectBar");
         Label arrow = new Label(res.getImage("news-tab-down-arrow.png"), "Container");
 
@@ -123,7 +124,7 @@ mesListes.addActionListener((e) -> {
 
         liste.addActionListener((e) -> {
     refreshTheme();
-        //new ListeCategorierecetteForm(res).show();
+        new ListExerciceForm(res).show();
             
         });
         partage.addActionListener((e) -> {

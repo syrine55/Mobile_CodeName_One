@@ -46,7 +46,7 @@ public class ListIMCForm extends BaseForm {
     Form current = this;
 
     public ListIMCForm(Resources res) {
-        super("Newsfeed", BoxLayout.y());
+        super("IMC", BoxLayout.y());
         Toolbar tb = new Toolbar(true);
 
         setToolbar(tb);
@@ -54,9 +54,13 @@ public class ListIMCForm extends BaseForm {
         setTitle("Espace IMC");
         getContentPane().setScrollVisible(false);
 
+        
+        super.addSideMenu(res);
         tb.addSearchCommand(e -> {
-
         });
+        /*tb.addSearchCommand(e -> {
+
+        });*/
         Tabs swipe = new Tabs();
         Label sw1 = new Label();
         Label sw2 = new Label();

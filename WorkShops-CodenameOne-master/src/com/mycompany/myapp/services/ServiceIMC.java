@@ -117,9 +117,8 @@ public class ServiceIMC {
     }
     
     public boolean addIMC(IMC i) {
-
         String url = Statics.BASE_URL + "/api/addIMC";
-        String json = ("{\"id_utilisateur\":" + 1 + ",\"poids\":" + i.getPoids() + ",\"taille\":" + i.getTaille() + "}");
+        String json = ("{\"id_utilisateur\":" + 72 + ",\"poids\":" + i.getPoids() + ",\"taille\":" + i.getTaille() + "}");
         
         req.addRequestHeader("accept", "application/json");
         req.setRequestBody(json);

@@ -91,7 +91,7 @@ public class BaseForm extends Form {
         }
         tb.addMaterialCommandToSideMenu("Gérer Catégorie Recette", FontImage.MATERIAL_EDIT, e -> new ListeCategorierecetteForm(res).show());
         tb.addMaterialCommandToSideMenu("Gérer Recette", FontImage.MATERIAL_EDIT, e -> new ListRecetteForm(res).show());
-        tb.addMaterialCommandToSideMenu("Profile", FontImage.MATERIAL_SETTINGS, e -> new ProfileForm(res).show());
+        tb.addMaterialCommandToSideMenu("Gérer IMC", FontImage.MATERIAL_EDIT, e -> new ListIMCForm(res).show());
         tb.addMaterialCommandToSideMenu("Logout", FontImage.MATERIAL_EXIT_TO_APP, e -> new WalkthruForm(res).show());
         
     }

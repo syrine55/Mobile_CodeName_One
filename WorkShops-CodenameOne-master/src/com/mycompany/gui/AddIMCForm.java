@@ -125,7 +125,7 @@ mesListes.addActionListener((e) -> {
 
         liste.addActionListener((e) -> {
     refreshTheme();
-        //new ListeCategorierecetteForm(res).show();
+        new ListExerciceForm(res).show();
             
         });
         partage.addActionListener((e) -> {

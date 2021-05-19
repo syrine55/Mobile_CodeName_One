@@ -56,9 +56,10 @@ public class ListExerciceForm extends BaseForm {
         setTitle("Espace Exercice");
         getContentPane().setScrollVisible(false);
         
+        super.addSideMenu(res);
         tb.addSearchCommand(e -> {
-
         });
+        
         Tabs swipe = new Tabs();
         Label sw1 = new Label();
         Label sw2 = new Label();

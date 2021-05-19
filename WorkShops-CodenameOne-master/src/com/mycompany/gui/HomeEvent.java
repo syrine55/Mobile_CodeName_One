@@ -30,13 +30,13 @@ public class HomeEvent extends Form {
 		Button btnParticiper = new Button("Participer");
 		Button btnUserEvent = new Button("Mes Event");
 		if (role.equals("spec")) {
-			btnAddTask.addActionListener(e -> new AddEventForm(current).show());
+			//btnAddTask.addActionListener(e -> new AddEventForm(current).show());
 			btnListTasks.addActionListener(e -> new ListEvent(current).show());
 			addAll(btnAddTask, btnListTasks);
 
 		} else {
 			btnParticiper.addActionListener(e -> new ListUserEvent(current).show());
-			btnUserEvent.addActionListener(e -> new MesEventLoader(current).show());
+			//btnUserEvent.addActionListener(e -> new MesEventLoader(current).show());
 			addAll(btnParticiper, btnUserEvent);
 
 		}
