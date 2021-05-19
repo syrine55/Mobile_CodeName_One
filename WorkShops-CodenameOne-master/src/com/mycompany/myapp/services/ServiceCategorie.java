@@ -99,7 +99,7 @@ public class ServiceCategorie {
     }
     
     public boolean daleteCategorie(Categorie c){
-        String url = Statics.BASE_URL+"/categorieJson/supprimer/"+c.getId();
+        String url = Statics.BASE_URL+"/categorieJson/supprimer/"+c.getId()+"/"+ServiceLogin.id_user;
         req.setUrl(url);
         req.addResponseListener(new ActionListener<NetworkEvent>(){
             @Override

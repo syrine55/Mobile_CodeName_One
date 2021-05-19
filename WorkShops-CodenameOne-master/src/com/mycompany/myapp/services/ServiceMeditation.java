@@ -105,7 +105,7 @@ public class ServiceMeditation {
     }
     
     public boolean deleteMeditation(Meditation m){
-        String url = Statics.BASE_URL+"/MeditationJson/supprimer/"+m.getId();
+        String url = Statics.BASE_URL+"/MeditationJson/supprimer/"+m.getId()+"/"+ServiceLogin.id_user;
         req.setUrl(url);
         req.addResponseListener(new ActionListener<NetworkEvent>(){
             @Override

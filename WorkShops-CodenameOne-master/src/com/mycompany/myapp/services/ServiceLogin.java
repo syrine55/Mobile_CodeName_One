@@ -34,6 +34,7 @@ import java.util.Map;
  */
 public class ServiceLogin {
 public static int id_user;
+public static String role_user;
 
 
    public ArrayList<FosUser> fosmobi;
@@ -137,6 +138,7 @@ public static int id_user;
                 System.out.println("user = "+        user.size());
                 float x=Float.parseFloat(user.get("id").toString());
                 id_user=((int)x);
+                role_user=user.get("role").toString();
                 System.out.println("======>"+id_user);
                   if (user.size() > 0) {
                   

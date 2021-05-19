@@ -5,6 +5,7 @@
  */
 package com.mycompany.gui;
 
+import com.codename1.capture.Capture;
 import com.codename1.components.ScaleImageLabel;
 import com.codename1.components.SpanLabel;
 import com.codename1.ui.Button;
@@ -38,6 +39,7 @@ import com.mycompany.myapp.services.ServiceCategorie;
 import com.mycompany.myapp.services.ServiceMeditation;
 import entity.Categorie;
 import entity.Meditation;
+import java.io.IOException;
 
 /**
  *
@@ -136,6 +138,12 @@ public class AddMeditationForm extends BaseForm {
 
         TextField desc =new TextField("","Description..........");
         desc.setUIID("TextFieldBlack");
+        
+       // TextField tfphoto =new TextField("","Image..........");
+       // desc.setUIID("TextFieldBlack");
+        
+        Button btnUpload = new Button("Upload image");
+        
         Button btnValider = new Button("Ajouter");
         
         btnValider.addActionListener(e->{
@@ -156,8 +164,25 @@ public class AddMeditationForm extends BaseForm {
                 }
             }
         });
-        addAll(tfName,categorie,desc,btnValider);
+        addAll(tfName,categorie,desc,btnUpload,btnValider);//c,tfphoto
 
+        btnUpload.addActionListener(e
+                -> {
+            String path = Capture.capturePhoto(1,1);
+            if (path != null) {
+                try {
+                    Image img = Image.createImage(path);
+                   // String ch= path.substring(45);
+                   System.out.println(img.getImageName());
+                    System.out.println(path);
+                   // tfphoto.setText(path);
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+            }
+            }         
+        );
+         
         // special case for rotation
         addOrientationListener(e -> {
             updateArrowPosition(barGroup.getRadioButton(barGroup.getSelectedIndex()), arrow);

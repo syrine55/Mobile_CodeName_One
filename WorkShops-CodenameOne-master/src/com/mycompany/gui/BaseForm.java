@@ -32,6 +32,7 @@ import com.codename1.ui.layouts.LayeredLayout;
 import com.codename1.ui.layouts.Layout;
 import com.codename1.ui.plaf.Style;
 import com.codename1.ui.util.Resources;
+import com.mycompany.myapp.services.ServiceLogin;
 
 /**
  * Base class for the forms with common functionality
@@ -77,14 +78,16 @@ public class BaseForm extends Form {
         sl.setBackgroundType(Style.BACKGROUND_IMAGE_SCALED_FILL);
         
         tb.addComponentToSideMenu(LayeredLayout.encloseIn(
-                sl,
-                FlowLayout.encloseCenterBottom(
-                        new Label(res.getImage("profile-pic.jpg"), "PictureWhiteBackgrond"))
+                sl//,
+              //  FlowLayout.encloseCenterBottom(
+                //        new Label(res.getImage("profile-pic.jpg"), "PictureWhiteBackgrond"))
         ));
         
         tb.addMaterialCommandToSideMenu("Consulter Meditation", FontImage.MATERIAL_UPDATE, e -> new ConsulterEspaceMeditation(res).show());
-        tb.addMaterialCommandToSideMenu("Gérer CatégorieM", FontImage.MATERIAL_EDIT, e -> new GestionCategorieForm(res).show());
-        tb.addMaterialCommandToSideMenu("Gérer Méditation", FontImage.MATERIAL_EDIT, e -> new GestionMeditationForm(res).show());
+        if (ServiceLogin.role_user.equals("specialisteM")) {
+            tb.addMaterialCommandToSideMenu("Gérer CatégorieM", FontImage.MATERIAL_EDIT, e -> new GestionCategorieForm(res).show());
+            tb.addMaterialCommandToSideMenu("Gérer Méditation", FontImage.MATERIAL_EDIT, e -> new GestionMeditationForm(res).show());
+        }
         tb.addMaterialCommandToSideMenu("Gérer Recette", FontImage.MATERIAL_EDIT, e -> new ListRecetteForm(res).show());
         tb.addMaterialCommandToSideMenu("Profile", FontImage.MATERIAL_SETTINGS, e -> new ProfileForm(res).show());
         tb.addMaterialCommandToSideMenu("Logout", FontImage.MATERIAL_EXIT_TO_APP, e -> new WalkthruForm(res).show());

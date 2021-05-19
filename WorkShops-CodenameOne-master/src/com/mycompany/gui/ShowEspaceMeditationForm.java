@@ -114,14 +114,15 @@ public class ShowEspaceMeditationForm extends BaseForm{
                 result=ServiceMeditation.getInstance().getEffectuerLikeParUnSeulEspace(ServiceLogin.id_user,mm.getId());
                 //likeCount,DislikeCount,checklike,checkDislike
                 //result.get(3),result.get(4),result.get(1),result.get(2)
-                new ShowEspaceMeditationForm(img,title,ServiceMeditation.getInstance().getNbLikeParUnSeulEspace(mm.getId()),ServiceMeditation.getInstance().getNbDisLikeParUnSeulEspace(mm.getId()),result.get(0),result.get(1),commentCount, res, mm).show();
+                new ShowEspaceMeditationForm(img,title,ServiceMeditation.getInstance().getNbLikeParUnSeulEspace(mm.getId()),ServiceMeditation.getInstance().getNbDisLikeParUnSeulEspace(mm.getId()),result.get(2),result.get(3),commentCount, res, mm).show();
             });
             dislike.addPointerPressedListener(e->{
                 result=new ArrayList<>();
                 result=ServiceMeditation.getInstance().getEffectuerUnLikeParUnSeulEspace(ServiceLogin.id_user,mm.getId());
-                //likeCount,DislikeCount,checklike,checkDislike
+                System.out.println("==>"+result+"||");
+                //likeCount,DislikeCount=>mta3 user,checklike,checkDislike=>mta3 total user
                 //result.get(3),result.get(4),result.get(1),result.get(2)
-                new ShowEspaceMeditationForm(img,title,ServiceMeditation.getInstance().getNbLikeParUnSeulEspace(mm.getId()),ServiceMeditation.getInstance().getNbDisLikeParUnSeulEspace(mm.getId()),result.get(0),result.get(1),commentCount, res, mm).show();
+                new ShowEspaceMeditationForm(img,title,ServiceMeditation.getInstance().getNbLikeParUnSeulEspace(mm.getId()),ServiceMeditation.getInstance().getNbDisLikeParUnSeulEspace(mm.getId()),result.get(2),result.get(3),commentCount, res, mm).show();
             });
             
             img2.getStyle().setTextDecoration(0x585858);
