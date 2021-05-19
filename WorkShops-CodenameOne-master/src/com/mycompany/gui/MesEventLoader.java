@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.mycompany.gui;
 
 import com.codename1.components.ImageViewer;
@@ -13,15 +8,12 @@ import com.codename1.ui.Button;
 import com.codename1.ui.ButtonGroup;
 import com.codename1.ui.Command;
 import com.codename1.ui.Component;
-import static com.codename1.ui.Component.BOTTOM;
-import static com.codename1.ui.Component.CENTER;
-import static com.codename1.ui.Component.LEFT;
-import static com.codename1.ui.Component.RIGHT;
 import com.codename1.ui.Container;
 import com.codename1.ui.Dialog;
 import com.codename1.ui.Display;
 import com.codename1.ui.EncodedImage;
 import com.codename1.ui.FontImage;
+import com.codename1.ui.Form;
 import com.codename1.ui.Graphics;
 import com.codename1.ui.Image;
 import com.codename1.ui.Label;
@@ -37,25 +29,34 @@ import com.codename1.ui.layouts.GridLayout;
 import com.codename1.ui.layouts.LayeredLayout;
 import com.codename1.ui.plaf.Style;
 import com.codename1.ui.util.Resources;
+import com.mycompany.gui.MesEventLoader;
 import com.mycompany.myapp.services.ServiceCategorie;
+import com.mycompany.myapp.services.ServiceEvent;
 import com.mycompany.myapp.services.ServiceMeditation;
+
 import entity.Categorie;
+import entity.Event;
 import entity.Meditation;
 
-/**
- *
- * @author Mega Pc
- */
-public class GestionMeditationForm extends BaseForm {
+public class MesEventLoader extends BaseForm {
+    Form current;
+   public static Resources res1;
+    
 
-    public GestionMeditationForm(Resources res) {
-        super("Gestion Méditation", BoxLayout.y());
+	
+	public MesEventLoader(Resources res) {
+		
+        super("Les Evenements", BoxLayout.y());
+        this.res1=res;
         Toolbar tb = new Toolbar(true);
         setToolbar(tb);
         getTitleArea().setUIID("Container");
-        setTitle("Méditation");
+        setTitle("Gestion Catégorie");
         getContentPane().setScrollVisible(false);
 
+        
+        current=this;
+        
         super.addSideMenu(res);
         tb.addSearchCommand(e -> {
         });
@@ -64,7 +65,7 @@ public class GestionMeditationForm extends BaseForm {
 
         Label spacer1 = new Label();
         Label spacer2 = new Label();
-        addTab(swipe, res.getImage("med.jpg"), spacer1, "", "", "Bienvenue dans nos espace de méditation.");
+        addTab(swipe, res.getImage("med.jpg"), spacer1, "", "", "Bienvenue dans nos espace d'evenements.");
         //addTab(swipe, res.getImage("dog.jpg"), spacer2, "100 Likes  ", "66 Comments", "Dogs are cute: story at 11");
 
         swipe.setUIID("Container");
@@ -106,47 +107,74 @@ public class GestionMeditationForm extends BaseForm {
         add(LayeredLayout.encloseIn(swipe, radioContainer));
 
         ButtonGroup barGroup = new ButtonGroup();
-        RadioButton all = RadioButton.createToggle("Méditation", barGroup);
-        all.setUIID("SelectBar");
-        RadioButton addmed = RadioButton.createToggle("Ajouter", barGroup);
-        addmed.setUIID("SelectBar");
+        RadioButton event = RadioButton.createToggle("Participer", barGroup);
+        event.setUIID("SelectBar");
+        RadioButton addEvent = RadioButton.createToggle("Mes Evenements", barGroup);
+        addEvent.setUIID("SelectBar");
+        
         Label arrow = new Label(res.getImage("news-tab-down-arrow.png"), "Container");
 
         add(LayeredLayout.encloseIn(
-                GridLayout.encloseIn(4, all, addmed),
+                GridLayout.encloseIn(4, event, addEvent),
                 FlowLayout.encloseBottom(arrow)
         ));
 
-        all.setSelected(true);
+        event.setSelected(true);
         arrow.setVisible(false);
         addShowListener(e -> {
             arrow.setVisible(true);
-            updateArrowPosition(all, arrow);
+            updateArrowPosition(event, arrow);
         });
-        bindButtonSelection(all, arrow);
-        bindButtonSelection(addmed, arrow);
+        bindButtonSelection(event, arrow);
+        bindButtonSelection(addEvent, arrow);
         
-        all.addActionListener(e -> new ConsulterEspaceMeditation(res).show());
-        addmed.addActionListener(e -> new AddMeditationForm(res).show());
-        
+       
+        event.addActionListener(e -> new GestionEventUser(res).show());
+        addEvent.addActionListener(e -> new MesEventLoader(res).show());
+    // chart.addActionListener(e -> new EventChart(current).show());
 
-        for (Meditation m : ServiceMeditation.getInstance().getAllMeditations()) {
-            ImageViewer img2 = new ImageViewer();
-            EncodedImage enc = EncodedImage.createFromImage(res.getImage("news-item-1.jpg"), false);
-            URLImage urlimage = URLImage.createToStorage(enc, "http://127.0.0.1/pidev/public/uploads/" + m.getImage(), "http://127.0.0.1/pidev/public/uploads/" + m.getImage());
-            img2.setImage(urlimage);
-            Image i = URLImage.createToStorage(enc, "http://127.0.0.1/pidev/public/uploads/" + m.getImage(), "http://127.0.0.1/pidev/public/uploads/" + m.getImage(), URLImage.RESIZE_SCALE);
-            addButton(i, m.getNom() + "\n" + m.getCategorie(), false, 26, 32,m.getId(),m.getNom(),res,m);
-        }
-
+      
         // special case for rotation
         addOrientationListener(e -> {
             updateArrowPosition(barGroup.getRadioButton(barGroup.getSelectedIndex()), arrow);
         });
+    	Container container1 = new Container(new BoxLayout(BoxLayout.Y_AXIS));
+
+        container1 = ServiceEvent.getInstance().mesEventLoader();
+
+		//getToolbar().addMaterialCommandToLeftBar("", FontImage.MATERIAL_ARROW_BACK, e -> previous.showBack());
+
+		add(container1);
+
+
 
 
     }
-    
+  //
+  public Container addItem(Categorie c,Resources res) {
+        Label tfName = new Label(c.getNom(), "Nom categorie");
+        Button btnsup = new Button("Supprimer");
+        Button btnmodifier = new Button("Modifier");
+        Container c1 = new Container(BoxLayout.x());
+
+        c1.addAll(tfName, btnsup,btnmodifier);
+
+        btnsup.addActionListener(e->{
+                Categorie cat = new Categorie(c.getId(), tfName.getText());
+                if (new ServiceCategorie().daleteCategorie(cat)) {
+                    Dialog.show("Succcess", "Categorie "+c.getNom()+" supprimer", new Command("ok"));
+                    new GestionCategorieForm(res).show();
+                } else {
+                    Dialog.show("Error", "Server error", new Command("ok"));
+                }
+        });
+        btnmodifier.addActionListener(e->{
+            new UpdateCategorieForm(res,c.getNom(),c.getId()).show();
+               // new UpdateCategorie(pervious,c.getNom(),c.getId()).show();
+        });
+        return c1;
+    }
+  //
     private void updateArrowPosition(Button b, Label arrow) {
         arrow.getUnselectedStyle().setMargin(LEFT, b.getX() + b.getWidth() / 2 - arrow.getWidth() / 2);
         arrow.getParent().repaint();
@@ -192,43 +220,38 @@ public class GestionMeditationForm extends BaseForm {
         swipe.addTab("", page1);
     }
     
-   private void addButton(Image img, String title, boolean liked, int likeCount, int commentCount,int id,String ch,Resources res,Meditation m) {
+   private void addButton(Image img, String title, boolean liked, int likeCount, int commentCount) {
        int height = Display.getInstance().convertToPixels(11.5f);
        int width = Display.getInstance().convertToPixels(14f);
        Button image = new Button(img.fill(width, height));
        image.setUIID("Label");
-       Container cnt = new Container(BoxLayout.x());
-       cnt.add(image);
+       Container cnt = BorderLayout.west(image);
+       cnt.setLeadComponent(image);
        TextArea ta = new TextArea(title);
        ta.setUIID("NewsTopLine");
        ta.setEditable(false);
 
-       Button btnModifier = new Button( "Modifier");
-       btnModifier.setTextPosition(RIGHT);
-       Button btnSupprimer = new Button("Supprimer");
+       Label likes = new Label(likeCount + " Likes  ", "NewsBottomLine");
+       likes.setTextPosition(RIGHT);
+       if(!liked) {
+           FontImage.setMaterialIcon(likes, FontImage.MATERIAL_FAVORITE);
+       } else {
+           Style s = new Style(likes.getUnselectedStyle());
+           s.setFgColor(0xff2d55);
+           FontImage heartImage = FontImage.createMaterial(FontImage.MATERIAL_FAVORITE, s);
+           likes.setIcon(heartImage);
+       }
+       Label comments = new Label(commentCount + " Comments", "NewsBottomLine");
+       FontImage.setMaterialIcon(likes, FontImage.MATERIAL_CHAT);
        
-       btnSupprimer.addActionListener(e->{
-                Meditation med =new Meditation(id,ch);
-                if (new ServiceMeditation().deleteMeditation(med)) {
-                    Dialog.show("Succcess", "Espace "+ch+" supprimer (un mail informative a été envoyer a l'administration)", new Command("ok"));
-                    new GestionMeditationForm(res).show();
-                } else {
-                    Dialog.show("Error", "Server error", new Command("ok"));
-                }
-        });
-        btnModifier.addActionListener(e->{
-            new UpdateMeditationForm(res,m).show();
-        });
-        Container c2=new Container(BoxLayout.y());
-        
-        Container c3=new Container(BoxLayout.x());
-        c3.addAll(btnModifier,btnSupprimer);
-        c2.addAll(ta,c3);
        
-        cnt.add(c2);
-        
+       cnt.add(BorderLayout.CENTER, 
+               BoxLayout.encloseY(
+                       ta,
+                       BoxLayout.encloseX(likes, comments)
+               ));
        add(cnt);
-       //image.addActionListener(e -> ToastBar.showMessage(title, FontImage.MATERIAL_INFO));
+       image.addActionListener(e -> ToastBar.showMessage(title, FontImage.MATERIAL_INFO));
    }
     
     private void bindButtonSelection(Button b, Label arrow) {

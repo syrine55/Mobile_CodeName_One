@@ -14,6 +14,7 @@ import com.codename1.charts.views.PieChart;
 import com.codename1.ui.FontImage;
 import com.codename1.ui.Form;
 import com.codename1.ui.layouts.BorderLayout;
+import com.mycompany.myapp.services.ServiceEvent;
 import com.mycompany.myapp.services.ServiceMeditation;
 import java.util.ArrayList;
 
@@ -21,19 +22,21 @@ import java.util.ArrayList;
  *
  * @author Mega Pc
  */
-public class ChartCategorieParnbrMed extends Form{
+public class EventChart extends Form{
+	 int nbre=ServiceEvent.nbrEnligne;
+     int nbrs=ServiceEvent.nbrSalle;
    
-    public ChartCategorieParnbrMed(Form previous) {
+    public EventChart(Form previous) {
+    	  double[] values = new double[2];
+    		values[0]=nbre;
+    		values[1]=nbrs;
         getStyle().setBgColor(0x2D2D2D);
         // Generate the values
-        int max=ServiceMeditation.getInstance().getAllnbEspaseParCategorie().size();
-        ArrayList<Long> med=ServiceMeditation.getInstance().getAllnbEspaseParCategorie();
-        double[] values = new double[max];
-        for (int i = 0; i < max; i++) {
-                values[i]=med.get(i);
-       }      
+       
+        //ArrayList<Long> med=ServiceMeditation.getInstance().getAllnbEspaseParCategorie();
+          
         // Set up the renderer
-        int[] colors = new int[]{ColorUtil.BLUE, ColorUtil.GREEN, ColorUtil.MAGENTA, ColorUtil.YELLOW, ColorUtil.CYAN, ColorUtil.YELLOW};
+        int[] colors = new int[]{ColorUtil.BLUE, ColorUtil.GREEN};
         DefaultRenderer renderer = buildCategoryRenderer(colors);
         renderer.setZoomButtonsVisible(true);
         renderer.setZoomEnabled(true);
@@ -86,11 +89,10 @@ public class ChartCategorieParnbrMed extends Form{
     protected CategorySeries buildCategoryDataset(String title, double[] values) {
         CategorySeries series = new CategorySeries(title);
         int k = 0;
-        ArrayList<String> cat=ServiceMeditation.getInstance().getAllParCategorie();
-        for (double value : values) {
-            series.add(cat.get(k), value);
-            k++;
-        }
+        
+            series.add("salle", nbrs);
+            series.add("en ligne", nbre);
+       
         
         return series;
     }

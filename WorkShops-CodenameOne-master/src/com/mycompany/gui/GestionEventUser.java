@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.mycompany.gui;
 
 import com.codename1.components.ImageViewer;
@@ -13,10 +8,6 @@ import com.codename1.ui.Button;
 import com.codename1.ui.ButtonGroup;
 import com.codename1.ui.Command;
 import com.codename1.ui.Component;
-import static com.codename1.ui.Component.BOTTOM;
-import static com.codename1.ui.Component.CENTER;
-import static com.codename1.ui.Component.LEFT;
-import static com.codename1.ui.Component.RIGHT;
 import com.codename1.ui.Container;
 import com.codename1.ui.Dialog;
 import com.codename1.ui.Display;
@@ -38,19 +29,25 @@ import com.codename1.ui.layouts.GridLayout;
 import com.codename1.ui.layouts.LayeredLayout;
 import com.codename1.ui.plaf.Style;
 import com.codename1.ui.util.Resources;
+import com.mycompany.gui.MesEventLoader;
 import com.mycompany.myapp.services.ServiceCategorie;
+import com.mycompany.myapp.services.ServiceEvent;
 import com.mycompany.myapp.services.ServiceMeditation;
+
 import entity.Categorie;
+import entity.Event;
 import entity.Meditation;
 
-/**
- *
- * @author Mega Pc
- */
-public class GestionCategorieForm extends BaseForm{
+public class GestionEventUser extends BaseForm {
     Form current;
-  public GestionCategorieForm(Resources res) {
-        super("Méditation", BoxLayout.y());
+   public static Resources res1;
+    
+
+	
+	public GestionEventUser(Resources res) {
+		
+        super("Les Evenements", BoxLayout.y());
+        this.res1=res;
         Toolbar tb = new Toolbar(true);
         setToolbar(tb);
         getTitleArea().setUIID("Container");
@@ -68,7 +65,7 @@ public class GestionCategorieForm extends BaseForm{
 
         Label spacer1 = new Label();
         Label spacer2 = new Label();
-        addTab(swipe, res.getImage("med.jpg"), spacer1, "", "", "Bienvenue dans nos espace de méditation.");
+        addTab(swipe, res.getImage("med.jpg"), spacer1, "", "", "Bienvenue dans nos espace d'evenements.");
         //addTab(swipe, res.getImage("dog.jpg"), spacer2, "100 Likes  ", "66 Comments", "Dogs are cute: story at 11");
 
         swipe.setUIID("Container");
@@ -110,41 +107,45 @@ public class GestionCategorieForm extends BaseForm{
         add(LayeredLayout.encloseIn(swipe, radioContainer));
 
         ButtonGroup barGroup = new ButtonGroup();
-        RadioButton Categorie = RadioButton.createToggle("Categorie", barGroup);
-        Categorie.setUIID("SelectBar");
-        RadioButton addCat = RadioButton.createToggle("Ajouter", barGroup);
-        addCat.setUIID("SelectBar");
-        RadioButton chart = RadioButton.createToggle("Chart", barGroup);
-        chart.setUIID("SelectBar");
+        RadioButton event = RadioButton.createToggle("Participer", barGroup);
+        event.setUIID("SelectBar");
+        RadioButton addEvent = RadioButton.createToggle("Mes Evenements", barGroup);
+        addEvent.setUIID("SelectBar");
+      
         Label arrow = new Label(res.getImage("news-tab-down-arrow.png"), "Container");
 
         add(LayeredLayout.encloseIn(
-                GridLayout.encloseIn(4, Categorie, addCat,chart),
+                GridLayout.encloseIn(4, event, addEvent),
                 FlowLayout.encloseBottom(arrow)
         ));
 
-        Categorie.setSelected(true);
+        event.setSelected(true);
         arrow.setVisible(false);
         addShowListener(e -> {
             arrow.setVisible(true);
-            updateArrowPosition(Categorie, arrow);
+            updateArrowPosition(event, arrow);
         });
-        bindButtonSelection(Categorie, arrow);
-        bindButtonSelection(addCat, arrow);
+        bindButtonSelection(event, arrow);
+        bindButtonSelection(addEvent, arrow);
         
        
-        Categorie.addActionListener(e -> new GestionCategorieForm(res).show());
-        addCat.addActionListener(e -> new AddCategorieForm(res).show());
-        chart.addActionListener(e -> new ChartCategorieParnbrMed(current).show());
+        event.addActionListener(e -> new GestionEventUser(res).show());
+        addEvent.addActionListener(e -> new MesEventLoader(res).show());
+    // chart.addActionListener(e -> new EventChart(current).show());
 
-        for (Categorie c : ServiceCategorie.getInstance().getAllCategories()) {
-            add(addItem(c,res));
-        }
-
+      
         // special case for rotation
         addOrientationListener(e -> {
             updateArrowPosition(barGroup.getRadioButton(barGroup.getSelectedIndex()), arrow);
         });
+        
+    	Container container1 = new Container(new BoxLayout(BoxLayout.Y_AXIS));
+    	container1 = ServiceEvent.getInstance().getEventsUser();
+
+		//getToolbar().addMaterialCommandToLeftBar("", FontImage.MATERIAL_ARROW_BACK, e -> previous.showBack());
+
+		add(container1);
+
 
 
     }
