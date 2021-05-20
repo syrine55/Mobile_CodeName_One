@@ -20,7 +20,8 @@ import com.codename1.ui.plaf.Style;
 import com.codename1.ui.spinner.Picker;
 import com.codename1.ui.spinner.TimeSpinner;
 import com.codename1.ui.util.Resources;
-import com.mycompany.services.ServicesConsommation ;
+import com.mycompany.myapp.services.ServicesConsommation;
+
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -43,8 +44,8 @@ public class ListConsommation extends BaseForm {
         getContentPane().setScrollVisible(false);
         
         
-        tb.addSearchCommand(e ->  {
-            
+        super.addSideMenu(res);
+        tb.addSearchCommand(e -> {
         });
         
         Tabs swipe = new Tabs();
@@ -52,7 +53,7 @@ public class ListConsommation extends BaseForm {
         Label s1 = new Label();
         Label s2 = new Label();
         
-        addTab(swipe,s1, res.getImage("back-logo.jpeg"),"","",res);
+        addTab(swipe,s1, res.getImage("water.jpg"),"","",res);
         
         //
         
@@ -190,7 +191,7 @@ public class ListConsommation extends BaseForm {
                     )
                 );
         
-        swipe.addTab("",res.getImage("back-logo.jpeg"), page1);
+        swipe.addTab("",res.getImage("water.jpg"), page1);
         
         
         

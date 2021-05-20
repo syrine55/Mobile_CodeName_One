@@ -35,6 +35,7 @@ import com.codename1.ui.layouts.GridLayout;
 import com.codename1.ui.layouts.LayeredLayout;
 import com.codename1.ui.plaf.Style;
 import com.codename1.ui.util.Resources;
+import com.mycompany.myapp.services.ServicesConsommation;
 /**
  *
  * @author Mohamed MOKHTAR
@@ -55,8 +56,8 @@ Form current   ;
         getContentPane().setScrollVisible(false);
         
         
-        tb.addSearchCommand(e ->  {
-            
+        super.addSideMenu(res);
+        tb.addSearchCommand(e -> {
         });
         
         Tabs swipe = new Tabs();
@@ -64,7 +65,7 @@ Form current   ;
         Label s1 = new Label();
         Label s2 = new Label();
         
-        addTab(swipe,s1, res.getImage("back-logo.jpeg"),"","",res);
+        addTab(swipe,s1, res.getImage("water.jpg"),"","",res);
         
         //
         
@@ -149,7 +150,7 @@ Form current   ;
             updateArrowPosition(barGroup.getRadioButton(barGroup.getSelectedIndex()), arrow);
         });
 
-        ComboBox feedBack = new ComboBox(  "❤ J'adore ❤ " , "💔 J'aime pas 💔 ") ;
+        ComboBox feedBack = new ComboBox(  "J adore" , "J aime pas") ;
         feedBack.setUIID("TextFieldWhite") ;
         addStringValue("Votre FeedBack aprés l'usage " , feedBack)  ;
         
@@ -161,7 +162,7 @@ Form current   ;
 //        getToolbar().addMaterialCommandToLeftBar("" , FontImage.MATERIAL_ARROW_BACK , e-> previous.showBack() )  ;
 
         bntAdd.addActionListener((e)->{
-        
+           ServicesConsommation.getInstance().mailfeedbacl(feedBack.getSelectedItem().toString());
         });
         
         
@@ -215,7 +216,7 @@ Form current   ;
                     )
                 );
         
-        swipe.addTab("",res.getImage("back-logo.jpeg"), page1);
+        swipe.addTab("",res.getImage("water.jpg"), page1);
         
         
         

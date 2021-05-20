@@ -13,10 +13,11 @@ import com.codename1.charts.views.PieChart;
 import com.codename1.ui.FontImage;
 import com.codename1.ui.Form;
 import com.codename1.ui.layouts.BorderLayout;
+import com.mycompany.myapp.services.ServicesConsommation;
 
-import com.mycompany.services.ServicesConsommation;
-import static com.mycompany.services.ServicesConsommation.cons;
-import static com.mycompany.services.ServicesConsommation.ctrl;
+//import com.mycompany.services.ServicesConsommation;
+//import static com.mycompany.services.ServicesConsommation.cons;
+//import static com.mycompany.services.ServicesConsommation.ctrl;
 import java.util.ArrayList;
 
 /**

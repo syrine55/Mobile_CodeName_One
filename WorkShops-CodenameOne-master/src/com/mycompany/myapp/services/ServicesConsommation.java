@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mycompany.services;
+package com.mycompany.myapp.services;
 
 /**
  *
@@ -22,9 +22,10 @@ import com.codename1.ui.Container;
 import com.codename1.ui.Dialog;
 import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.layouts.BoxLayout;
-import com.mycomany.entities.Consommation;
-import com.mycomany.utils.Statics;
+//import com.mycomany.entities.Consommation;
+import Utils.Statics;
 import com.mycompany.gui.EditConsommation;
+import entity.Consommation;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -38,7 +39,7 @@ public class ServicesConsommation {
     public static ServicesConsommation instance=null;
     public boolean resultOK;
     private ConnectionRequest req;
-    private int userId = 2 ;
+    private int userId = ServiceLogin.id_user;
     public static double ctrl , cons ; 
     
     private ServicesConsommation() {
@@ -56,7 +57,7 @@ public class ServicesConsommation {
 
     public boolean addConsommation(Consommation consommationEntity)
     {
-        String url = Statics.BASE_URL+"/AddGestionEau/new?hr="+consommationEntity.getHeure_reveil()+"&hd="+consommationEntity.getHeure_dormir()+"&cc="+consommationEntity.getCtrl_consomation()
+        String url = Statics.BASE_URL+"AddGestionEau/new?hr="+consommationEntity.getHeure_reveil()+"&hd="+consommationEntity.getHeure_dormir()+"&cc="+consommationEntity.getCtrl_consomation()
                 +"&c="+consommationEntity.getConsomation();
         ConnectionRequest req = new ConnectionRequest(url) ;
         req.addResponseListener(new ActionListener<NetworkEvent>() {
@@ -109,6 +110,7 @@ public ArrayList<Consommation> parseTasks(String jsonText) {
 				// Création des tâches et récupération de leurs données
 				Consommation e = new Consommation();
 				String heure_reveil = obj.get("heure_reveil").toString();
+                                e.setUser_id((int) Float.parseFloat(obj.get("id_user").toString()));
 				e.setHeure_reveil(heure_reveil);
 				e.setHeure_dormir(obj.get("heure_dormir").toString());
 				e.setCtrl_consomation(obj.get("ctrl_consomation").toString());
@@ -140,7 +142,7 @@ public ArrayList<Consommation> parseTasks(String jsonText) {
 
 
     public boolean supprimer (Consommation c ) {
-        String url = Statics.BASE_URL + "/DeleteGestionEau?id="+c.getId();
+        String url = Statics.BASE_URL + "DeleteGestionEau?id="+c.getId();
         req.setUrl(url);
         req.addResponseListener(new ActionListener<NetworkEvent>() {
             @Override
@@ -156,7 +158,7 @@ public ArrayList<Consommation> parseTasks(String jsonText) {
    
     
     public boolean modif(Consommation c) {
-		String url = Statics.BASE_URL + "/EditGestionEau?id=" + userId + "&hr=" + c.getHeure_reveil()+ "&hd="
+		String url = Statics.BASE_URL + "EditGestionEau?id=" + c.getId() + "&hr=" + c.getHeure_reveil()+ "&hd="
 				+ c.getHeure_dormir()+ "&cc=" + c.getCtrl_consomation()+ "&c=" + c.getConsomation()  ;
 		req.setUrl(url);// Insertion de l'URL de notre demande de connexion
 		req.addResponseListener(new ActionListener<NetworkEvent>() {
@@ -181,7 +183,7 @@ public ArrayList<Consommation> parseTasks(String jsonText) {
     
     
      public Container getAllGestionEau(){
-        String url = Statics.BASE_URL+"/AllGestionEau/";
+        String url = Statics.BASE_URL+"AllGestionEau/";
         req.setUrl(url);
         req.setPost(false);
         req.addResponseListener(new ActionListener<NetworkEvent>() {
@@ -202,7 +204,7 @@ public ArrayList<Consommation> parseTasks(String jsonText) {
         Consommation consommation = new Consommation() ;
         for (Consommation cc:consommationEntitys)
         {
-            if(cc.getId() == userId )
+            if(cc.getUser_id() == userId )
                 
             {
                 consommationEntity=cc ;
@@ -237,7 +239,20 @@ public ArrayList<Consommation> parseTasks(String jsonText) {
      
  
   
-     
+   public String mailfeedbacl(String ch)
+    {
+        String url = Statics.BASE_URL+"apijson/contact/"+userId+"/"+ch;
+        ConnectionRequest req = new ConnectionRequest(url) ;
+        req.addResponseListener(new ActionListener<NetworkEvent>() {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                resultOK = req.getResponseCode()==200 ;
+            }
+        });
+        NetworkManager.getInstance().addToQueueAndWait(req);
+        return "dd" ;
+
+    }  
 }
 
 

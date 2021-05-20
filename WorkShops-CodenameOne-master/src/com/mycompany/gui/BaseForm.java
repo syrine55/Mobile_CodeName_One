@@ -91,7 +91,17 @@ public class BaseForm extends Form {
         }
         tb.addMaterialCommandToSideMenu("Gérer Catégorie Recette", FontImage.MATERIAL_EDIT, e -> new ListeCategorierecetteForm(res).show());
         tb.addMaterialCommandToSideMenu("Gérer Recette", FontImage.MATERIAL_EDIT, e -> new ListRecetteForm(res).show());
+        
+         if (ServiceLogin.role_user.equals("client")) {
+         tb.addMaterialCommandToSideMenu("Evenement client", FontImage.MATERIAL_CALENDAR_TODAY, e -> new GestionEventUser(res).show());
+         }else{
+             tb.addMaterialCommandToSideMenu("Evenement specialiste", FontImage.MATERIAL_CALENDAR_TODAY, e -> new GestionEvent(res).show());
+         }
+        
         tb.addMaterialCommandToSideMenu("Gérer IMC", FontImage.MATERIAL_EDIT, e -> new ListIMCForm(res).show());
+        tb.addMaterialCommandToSideMenu("Usage Consommation", FontImage.MATERIAL_CALENDAR_TODAY, e -> new AddConsommation(res).show());
+        tb.addMaterialCommandToSideMenu("Reclamation", FontImage.MATERIAL_CALENDAR_TODAY, e -> new AjoutReclamationForm(res).show());
+        
         tb.addMaterialCommandToSideMenu("Logout", FontImage.MATERIAL_EXIT_TO_APP, e -> new WalkthruForm(res).show());
         
     }

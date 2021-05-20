@@ -23,9 +23,11 @@ import com.codename1.ui.plaf.Style;
 import com.codename1.ui.spinner.Picker;
 import com.codename1.ui.spinner.TimeSpinner;
 import com.codename1.ui.util.Resources;
-import com.mycomany.entities.Consommation;
+//import com.mycomany.entities.Consommation;
+import com.mycompany.myapp.services.ServicesConsommation;
+import entity.Consommation;
 
-import com.mycompany.services.ServicesConsommation ;
+//import com.mycompany.services.ServicesConsommation ;
 import java.util.Date;
 /**
  *
@@ -39,7 +41,7 @@ public class AddConsommation extends BaseForm {
     public AddConsommation(Resources res) {
     
          super("Newsfeed",BoxLayout.y()); //herigate men Newsfeed w l formulaire vertical
-    
+    this.rss=res;
         Toolbar tb = new Toolbar(true);
         current = this ;
         setToolbar(tb);
@@ -48,8 +50,8 @@ public class AddConsommation extends BaseForm {
         getContentPane().setScrollVisible(false);
         
         
-        tb.addSearchCommand(e ->  {
-            
+        super.addSideMenu(res);
+        tb.addSearchCommand(e -> {
         });
         
         Tabs swipe = new Tabs();
@@ -57,7 +59,7 @@ public class AddConsommation extends BaseForm {
         Label s1 = new Label();
         Label s2 = new Label();
         
-        addTab(swipe,s1, res.getImage("back-logo.jpeg"),"","",res );
+        addTab(swipe,s1, res.getImage("water.jpg"),"","",res );
         
         //
         
@@ -188,7 +190,7 @@ public class AddConsommation extends BaseForm {
                     System.out.println("DATA = "+gestionEau );
                     ServicesConsommation.getInstance().addConsommation(gestionEau);
                     iDialog.dispose();
-                    new HomeForm(res).show() ;
+                    new AddConsommation(res).show() ;
                     refreshTheme();
                 }
             }catch (Exception ex){
@@ -237,7 +239,7 @@ public class AddConsommation extends BaseForm {
                     )
                 );
         
-        swipe.addTab("",res.getImage("back-logo.jpeg"), page1);
+        swipe.addTab("",res.getImage("water.jpg"), page1);
         
         
         

@@ -252,6 +252,11 @@ public class ServiceEvent {
 			container2.add(event.getType());
 			container1All.addAll(container2, container1);
 		}
+                Label empty = new Label("pas d'evenement");
+
+		if(events.isEmpty()) {
+			container1All.add(empty);
+		}
 		return container1All;
 	}
 
@@ -292,6 +297,11 @@ public class ServiceEvent {
 			container2.add(event.getTitre());
 			container2.add(event.getType());
 			container1All.addAll(container2, container1);
+		}
+                Label empty = new Label("pas d'evenement");
+
+		if(events.isEmpty()) {
+			container1All.add(empty);
 		}
 		return container1All;
 	}

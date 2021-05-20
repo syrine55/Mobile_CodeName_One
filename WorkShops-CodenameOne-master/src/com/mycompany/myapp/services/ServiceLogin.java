@@ -33,7 +33,7 @@ import java.util.Map;
  *
  * @author ISLEM_PC
  */
-public class ServiceLogin{
+public class ServiceLogin extends BaseForm{
 public static int id_user;
 public static String role_user,json;
 public String ch;
@@ -147,10 +147,23 @@ public String ch;
                    
                   //  Dialog.show("Hi", "Welcome back", new Command("OK"));
                        Toolbar.setGlobalToolbar(false);
-            new ConsulterEspaceMeditation(res).show();
-       
-            Toolbar.setGlobalToolbar(true);
+                       InfiniteProgress ip = new InfiniteProgress();
+                       //
+                       final Dialog iDialog = ip.showInfiniteBlocking();
+
+                    //
                     
+           
+       
+                      iDialog.dispose();
+                      
+                       new ConsulterEspaceMeditation(res).show();
+                      
+                      refreshTheme();
+            
+            
+            Toolbar.setGlobalToolbar(true);
+                   
 
                 } else {
                     Dialog.show("error", "Connection Failed", new Command("OK"));

@@ -201,6 +201,7 @@
     <image name="on-off-on.png" type="multi"  />
     <image name="profile-background.jpg"  />
     <image name="profile-pic.jpg" type="multi"  />
+    <image name="reclamation.png"  />
     <image name="round.png" type="multi"  />
     <image name="round.png1" type="multi"  />
     <image name="round.png2" type="multi"  />
@@ -292,7 +293,6 @@
         <val key="DatePickerDay.sel#transparency" value="0" />
         <val key="DatePickerDay.transparency" value="0" />
         <val key="DatePickerEvent.align" value="4" />
-        <val key="DatePickerEvent.fgColor" value="cccccc" />
         <font key="DatePickerEvent.font" type="ttf" face="0" style="0" size="0" name="native:MainThin" family="native:MainThin" sizeSettings="3" actualSize="4.5" />
         <val key="DatePickerEvent.sel#align" value="4" />
         <val key="DatePickerEvent.sel#fgColor" value="777777" />
@@ -311,9 +311,6 @@
         <val key="FloatingHint.fgColor" value="a2a1b8" />
         <font key="FloatingHint.font" type="ttf" face="0" style="0" size="0" name="native:MainLight" family="native:MainLight" sizeSettings="3" actualSize="2.5" />
         <val key="FloatingHint.transparency" value="0" />
-        <val key="Form.bgColor" value="ffffff" />
-        <gradient key="Form.bgGradient" color1="0" color2="0" posX="0.5" posY="0.5" radius="1.0" />
-        <val key="Form.bgType" value="0" />
         <val key="Form.transparency" value="255" />
         <val key="ImageOverlay.bgColor" value="14134b" />
         <val key="ImageOverlay.transparency" value="60" />
@@ -466,11 +463,7 @@
         <val key="StatusBarSideMenu.margin" value="0,0,0,0" />
         <val key="StatusBarSideMenu.padding" value="0,0,0,0" />
         <val key="TextField.align" value="4" />
-        <val key="TextField.bgColor" value="0" />
-        <gradient key="TextField.bgGradient" color1="0" color2="0" posX="0.5" posY="0.5" radius="1.0" />
-        <val key="TextField.bgType" value="0" />
         <border key="TextField.border" type="empty" />
-        <val key="TextField.fgColor" value="ffffff" />
         <font key="TextField.font" type="ttf" face="0" style="0" size="0" name="native:MainRegular" family="native:MainRegular" sizeSettings="3" actualSize="3.0" />
         <val key="TextField.margin" value="0.0,0.0,0.0,0.0" />
         <val key="TextField.padUnit" value="2,2,2,2" />
@@ -578,6 +571,7 @@
     <image name="TitleArea.borderTopR_2.png1" type="multi"  />
     <image name="TitleArea.borderTopR_2.png2" type="multi"  />
     <image name="twitter-logo.png" type="multi"  />
+    <image name="water.jpg"  />
     <image name="welcome-background.jpg"  />
     <image name="welcome-slide-1.png" type="multi"  />
     <image name="welcome-slide-2.png" type="multi"  />

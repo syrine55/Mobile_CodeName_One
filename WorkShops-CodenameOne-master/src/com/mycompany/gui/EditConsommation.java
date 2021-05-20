@@ -14,8 +14,9 @@ import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.spinner.Picker;
 import com.codename1.ui.spinner.TimeSpinner;
 import com.codename1.ui.util.Resources;
-import com.mycomany.entities.Consommation;
-import com.mycompany.services.ServicesConsommation;
+//import com.mycomany.entities.Consommation;
+import com.mycompany.myapp.services.ServicesConsommation;
+import entity.Consommation;
 import java.util.Date;
 /**
  *
@@ -75,12 +76,12 @@ add(mesListes);
                 else {
                     InfiniteProgress ip = new InfiniteProgress();
                     final Dialog iDialog = ip.showInfiniteBlocking();
-                    Consommation gestionEau = new Consommation (String.valueOf(heure_reveil.getText()).toString() , String.valueOf(heure_dormir.getText()).toString()  ,
+                    Consommation gestionEau = new Consommation (consommation.getId(),String.valueOf(heure_reveil.getText()).toString() , String.valueOf(heure_dormir.getText()).toString()  ,
                             String.valueOf(ctrl_consomation.getText()).toString() , String.valueOf(consomation.getText()).toString() ) ;
                     System.out.println("DATA = "+gestionEau );
                     ServicesConsommation.getInstance().modif(gestionEau);
                     iDialog.dispose();
-                    new HomeForm(res).show() ;
+//                    new AddConsommation(res).show() ;
                     refreshTheme();
                 }
             }catch (Exception ex){

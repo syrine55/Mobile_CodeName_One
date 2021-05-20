@@ -3,11 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mycomany.entities;
+package entity;
 
 public class Consommation {
 
-    int id ;
+    int id,user_id ;
     String heure_reveil , heure_dormir , ctrl_consomation , consomation ;
 public Consommation() {
     }
@@ -25,6 +25,14 @@ public Consommation() {
         this.heure_dormir = heure_dormir;
         this.ctrl_consomation = ctrl_consomation;
         this.consomation = consomation;
+    }
+
+    public int getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(int user_id) {
+        this.user_id = user_id;
     }
 
     
